@@ -1,0 +1,49 @@
+// Mediaqueries variables
+@mobile: ~"only screen and (min-width: 288px)";
+@smartphone: ~"only screen and (min-width: 480px)";
+@tablet: ~"only screen and (min-width: 768px)";
+@desktop: ~"only screen and (min-width: 991px)";
+@widescreen: ~"only screen and (min-width: 1240px)";
+
+@import "layout.less";
+@import "login.less";
+@import "fonts.less";
+
+/* default */
+fieldset {
+  border: none;
+}
+
+/* Bodyclasses */
+.loginPage {
+  background-color: #1abc9c;
+  color: white;
+}
+.addInstanceForm {
+  width: 25%;
+  float: left;
+  padding-right: 20px;
+  border-right: 1px solid #eee;
+
+  .actionHeader {
+    margin: 0 0 20px 0;
+  }
+
+  form input, textarea {
+    width: 90%;
+  }
+}
+.contentWrap {
+
+  padding: 0 10px 0 20px;
+  float: left;
+  width: 65%;
+
+  .instanceTableContainer {
+    float: left;
+    clear: both;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+

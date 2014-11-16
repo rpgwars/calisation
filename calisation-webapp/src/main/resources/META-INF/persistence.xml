@@ -1,0 +1,33 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+ <persistence-unit name="clust" transaction-type="RESOURCE_LOCAL">
+  <provider> org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+  <class>com.calisation.server.domain.Department</class>
+  <class>com.calisation.server.domain.UserCode</class>
+  <class>com.calisation.server.domain.PositionNotification</class>
+  <properties>
+  <!----> 
+   <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
+   <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema" />
+   <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver" />
+   <property name="openjpa.ConnectionURL" value="jdbc:mysql://calisation-mysql-1.cigdymqxbwnl.eu-west-1.rds.amazonaws.com:3306/lisation" />
+   <property name="openjpa.ConnectionUserName" value="root" />
+   <property name="openjpa.ConnectionPassword" value="gumasss1" />
+   <property name="openjpa.ndb.database" value="lisation" />
+   <!-- <property name="openjpa.Log" value="DefaultLevel=TRACE, Tool=INFO" /> -->
+    
+  <!-- cluster configuration 
+   <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
+   <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema" />
+   <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver" />
+   <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:5000/clust" />
+   <property name="openjpa.ConnectionUserName" value="root" />
+   <property name="openjpa.ConnectionPassword" value="" />
+   <property name="openjpa.BrokerFactory" value="ndb" />
+   <property name="openjpa.jdbc.DBDictionary" value="TableType=ndbcluster" />
+   <property name="openjpa.ndb.connectString" value="nodeid=51;localhost:1186" />
+   <property name="openjpa.ndb.database" value="clust" />
+   <property name="openjpa.Log" value="DefaultLevel=TRACE, Tool=INFO" />
+   -->
+  </properties>
+ </persistence-unit>
+</persistence>
