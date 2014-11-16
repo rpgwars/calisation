@@ -1,0 +1,268 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>calisation.com</groupId>
+  <artifactId>calisation</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Localisation</name>
+  <description>Localisation application</description>
+	
+  
+    <modules>
+      <module>calisation-webapp</module>
+      <module>calisation-domain</module>
+      <module>calisation-service</module>
+      <module>calisation-repository</module>
+      <module>calisation-domain-pojo</module>
+    </modules>
+    
+    
+    
+      <dependencies>
+      
+      <!--  spring web-mvc -->
+        <dependency>
+      	  <groupId>org.springframework</groupId>
+      	  <artifactId>spring-webmvc</artifactId>
+      	  <version>${springVersion}</version> 
+        </dependency>
+        <dependency>
+      	  <groupId>org.springframework</groupId>
+      	  <artifactId>spring-web</artifactId>
+      	  <version>${springVersion}</version> 
+        </dependency>
+      
+     
+      
+      
+      <!--  spring security -->
+      <!--
+	  <dependency>
+	  	<groupId>org.springframework.security</groupId> 
+	  	<artifactId>spring-security-core</artifactId> 
+	  	<version>${springSecurityVersion}</version>
+	  	<exclusions>
+	  		<exclusion>
+	  			<artifactId>spring-asm</artifactId>
+	  			<groupId>org.springframework</groupId>
+	  		</exclusion>
+	  		<exclusion>
+	  			<artifactId>spring-context</artifactId>
+	  			<groupId>org.springframework</groupId>
+	  		</exclusion>
+	  	</exclusions>
+	  </dependency>
+	  
+	  
+	  <dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-taglibs</artifactId>
+		<version>${springSecurityVersion}</version>
+	  </dependency>
+	  -->
+	  
+	  <!-- context ver -->
+	  <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${springVersion}</version>
+	  </dependency>
+	  
+	  <!--
+	  <dependency>
+	  	<groupId>org.springframework.security</groupId> 
+	  	<artifactId>spring-security-openid</artifactId> 
+	  	<version>${springSecurityVersion}</version>
+	  	<exclusions>
+	  		<exclusion>
+	  			<artifactId>spring-context</artifactId>
+	  			<groupId>org.springframework</groupId>
+	  		</exclusion>
+	  	</exclusions>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.springframework.security</groupId> 
+	  	<artifactId>spring-security-taglibs</artifactId> 
+	  	<version>${springSecurityVersion}</version>
+	  	<exclusions>
+	  		<exclusion>
+	  			<artifactId>spring-context</artifactId>
+	  			<groupId>org.springframework</groupId>
+	  		</exclusion>
+	  	</exclusions>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.springframework.security</groupId> 
+	  	<artifactId>spring-security-config</artifactId> 
+	  	<version>${springSecurityVersion}</version>
+	  	<exclusions>
+	  		<exclusion>
+	  			<artifactId>spring-context</artifactId>
+	  			<groupId>org.springframework</groupId>
+	  		</exclusion>
+	  	</exclusions>
+	  </dependency>
+	  -->
+	  <!--  spring orm -->
+	  <!--
+	  <dependency>
+	  	<groupId>org.eclipse.persistence</groupId> 
+	  	<artifactId>javax.persistence</artifactId> 
+	  	<version>2.0.0</version>
+	  </dependency>
+	  
+	  <dependency>
+	  	<groupId>org.springframework</groupId> 
+	  	<artifactId>spring-orm</artifactId> 
+	  	<version>${springVersion}</version>
+	  	<exclusions>
+	  		<exclusion>
+	  			<groupId>org.eclipse.persistence</groupId>
+	  		</exclusion>
+	  		<exclusion>
+	  			<artifactId>hibernate-annotations</artifactId>
+	  		</exclusion>
+	  		<exclusion>
+	  			<artifactId>hibernate-commons-annotations</artifactId>
+	  		</exclusion>
+	  	</exclusions>
+	  </dependency>
+	  
+
+	  <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>${springVersion}</version>
+	  </dependency>
+	  -->
+	  
+	  <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+		<version>${springVersion}</version>
+	  </dependency>
+	  
+	  <dependency>
+	  	<groupId>org.springframework</groupId> 
+	  	<artifactId>spring-orm</artifactId> 
+	  	<version>${springVersion}</version>
+	  </dependency>
+	  
+	  <!--  jstl --> 
+	  <dependency>
+	  	<groupId>jstl</groupId> 
+	  	<artifactId>jstl</artifactId> 
+	  	<version>1.2</version>
+	  </dependency>
+	  
+	  <dependency>
+	  	<groupId>taglibs</groupId> 
+	  	<artifactId>standard</artifactId> 
+	  	<version>1.1.2</version>
+	  </dependency>
+	   
+	  <!--  apache tiles -->
+	  <dependency>
+	  	<groupId>org.apache.tiles</groupId> 
+	  	<artifactId>tiles-core</artifactId> 
+	  	<version>${apacheTilesVersion}</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.apache.tiles</groupId> 
+	  	<artifactId>tiles-jsp</artifactId> 
+	  	<version>${apacheTilesVersion}</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.apache.tiles</groupId> 
+	  	<artifactId>tiles-api</artifactId> 
+	  	<version>${apacheTilesVersion}</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.apache.tiles</groupId> 
+	  	<artifactId>tiles-servlet</artifactId> 
+	  	<version>${apacheTilesVersion}</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.apache.tiles</groupId> 
+	  	<artifactId>tiles-template</artifactId> 
+	  	<version>${apacheTilesVersion}</version>
+	  </dependency>
+
+
+	  <!--  utils -->
+	  <dependency>
+	  	<groupId>commons-beanutils</groupId> 
+	  	<artifactId>commons-beanutils</artifactId> 
+	  	<version>1.8.3</version>
+	  	<exclusions>
+	  		<exclusion>
+                  <groupId>commons-collections</groupId>
+	  		</exclusion>
+	  	</exclusions>
+	  </dependency>
+	  <dependency>
+	  	<groupId>commons-digester</groupId> 
+	  	<artifactId>commons-digester</artifactId> 
+	  	<version>2.1</version>
+	  </dependency>
+	  <dependency>
+		<groupId>commons-collections</groupId>
+		<artifactId>commons-collections</artifactId>
+		<version>3.2.1</version>
+	  </dependency>
+
+	  <dependency>
+	  	<groupId>log4j</groupId> 
+	  	<artifactId>log4j</artifactId> 
+	  	<version>1.2.17</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.slf4j</groupId> 
+	  	<artifactId>slf4j-log4j12</artifactId> 
+	  	<version>1.7.7</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>org.slf4j</groupId> 
+	  	<artifactId>slf4j-api</artifactId> 
+	  	<version>1.7.7</version>
+	  </dependency>
+
+	  <dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.11</version>
+		<scope>test</scope>
+	  </dependency>
+		
+	  <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${springVersion}</version>
+	  </dependency>
+
+      
+
+      </dependencies>
+    
+
+    <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+            <source>1.6</source>
+            <target>1.6</target>
+            </configuration>
+          </plugin>
+        </plugins>
+    </build>
+
+
+    <properties>
+   	  <springVersion>4.0.6.RELEASE</springVersion>
+      <springSecurityVersion>4.0.6.RELEASE</springSecurityVersion>
+      <apacheTilesVersion>3.0.4</apacheTilesVersion>
+    </properties>
+     		
+</project>
