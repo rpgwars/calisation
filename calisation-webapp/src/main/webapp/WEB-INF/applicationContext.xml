@@ -16,7 +16,7 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         
-    
+    <import resource="classpath:/amazonS3Beans.xml" />
     <!--  <bean id="openJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter"/>-->
        
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -35,6 +35,17 @@
 	<context:annotation-config />
 	<context:component-scan base-package="com.calisation.server.repository"/>
 	<context:component-scan base-package="com.calisation.server.service"/>
+	<context:component-scan base-package="com.komar.service.coloudstorage.put.amazons3"/>
+	
+	 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000"/>
+    </bean>
+    
+    <bean id="putService" class="com.komar.service.coloudstorage.put.amazons3.AmazonS3PutService">
+    	<property name="bucketName" value="komar-sandbox"/>
+    </bean>
+    
 	 
 <!--
     <bean id="propertyConfigurer"

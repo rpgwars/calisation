@@ -1,0 +1,14 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       >
+       
+    <bean id="amazonS3Client" class="com.amazonaws.services.s3.AmazonS3Client">
+    	<constructor-arg type="com.amazonaws.auth.AWSCredentialsProvider" ref="profileCredentialsProvider"/>
+    </bean>
+    
+    <bean id="profileCredentialsProvider" class="com.amazonaws.auth.profile.ProfileCredentialsProvider">
+    	<constructor-arg type="String" value="KOMAR_S3"/>
+    </bean>
+        
+</beans>

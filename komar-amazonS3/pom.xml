@@ -23,6 +23,16 @@
 	  <artifactId>aws-java-sdk</artifactId>
 	  <version>1.10.4.1</version>
 	</dependency>
+	<dependency>
+      <groupId>calisation.com</groupId>
+      <artifactId>calisation-service</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>calisation.com</groupId>
+      <artifactId>calisation-domain-pojo</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   
 </project>
