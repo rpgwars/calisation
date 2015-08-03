@@ -12,6 +12,22 @@
   
   
   <dependencies>
+  
+ 	<dependency>
+  	  <groupId>org.springframework.security</groupId> 
+  	  <artifactId>spring-security-core</artifactId> 
+  	  <version>${springSecurityVersion}</version>
+  	<!-- <exclusions>
+  		<exclusion>
+  			<artifactId>spring-asm</artifactId>
+  			<groupId>org.springframework</groupId>
+  		</exclusion>
+  		<exclusion>
+  			<artifactId>spring-context</artifactId>
+  			<groupId>org.springframework</groupId>
+  		</exclusion>
+  	</exclusions>-->
+  	</dependency>
     <dependency>
       <groupId>calisation.com</groupId>
       <artifactId>calisation-domain</artifactId>
