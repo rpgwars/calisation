@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+
+    <http use-expressions="true" auto-config='true' disable-url-rewriting="false">
+        <csrf disabled="true"/>
+        <intercept-url pattern="/j_spring_security_check" access="permitAll"/>
+        <intercept-url pattern="/login.html" access="permitAll" requires-channel='https'/>
+        <intercept-url pattern="/about.html" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/**" access="permitAll" />
+
+
+        <form-login login-page="/login.html"
+                    authentication-failure-url="/zzz.html"
+                    default-target-url="/about.html"
+                    username-parameter="j_username"
+                    password-parameter="j_password"
+                    login-processing-url="/j_spring_security_check"/>
+
+        <access-denied-handler error-page="/login.html"/>
+
+        <logout invalidate-session="true"
+                logout-success-url="/login.html"
+                logout-url="/logout.html"/>
+    </http>
+
+    <authentication-manager>
+
+        <authentication-provider>
+            <user-service>
+                <user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+            </user-service>
+        </authentication-provider>
+
+        <authentication-provider user-service-ref="accountServiceImpl" >
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
+
+    </authentication-manager>
+</beans:beans>

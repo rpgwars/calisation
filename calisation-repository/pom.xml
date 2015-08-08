@@ -4,19 +4,14 @@
     <groupId>calisation.com</groupId>
     <artifactId>calisation</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../calisation/pom.xml</relativePath>
   </parent>
   <artifactId>calisation-repository</artifactId>
   <name>Localisation repository</name>
   <description>Localisation repository</description>
   
   <dependencies>
-  	<dependency>
-		<groupId>org.apache.openjpa</groupId>
-		<artifactId>openjpa-all</artifactId>
-		<version>2.3.0</version>
-		<scope>provided</scope>
-	</dependency>
-	
+
 	<dependency>
 		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>

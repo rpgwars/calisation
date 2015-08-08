@@ -5,7 +5,7 @@ import javax.persistence.PersistenceContext;
 
 public class GenericDAOImpl<T> implements GenericDAO<T>{
 
-	@PersistenceContext(unitName="clust")
+	@PersistenceContext(unitName="komar")
 	protected EntityManager entityManager; 
 	
 	@Override

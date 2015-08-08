@@ -9,15 +9,14 @@
 	
   
     <modules>
-      <module>calisation-webapp</module>
-      <module>calisation-domain</module>
-      <module>calisation-service</module>
-      <module>calisation-repository</module>
-      <module>calisation-domain-pojo</module>
+      <module>../calisation-webapp</module>
+      <module>../calisation-domain</module>
+      <module>../calisation-service</module>
+      <module>../calisation-repository</module>
+      <module>../calisation-domain-pojo</module>
     </modules>
-    
-    
-    
+
+
       <dependencies>
       
       <!--  spring web-mvc -->
@@ -36,12 +35,12 @@
       
       
       <!--  spring security -->
-      <!--
+
 	  <dependency>
 	  	<groupId>org.springframework.security</groupId> 
 	  	<artifactId>spring-security-core</artifactId> 
 	  	<version>${springSecurityVersion}</version>
-	  	<exclusions>
+	  <!--	<exclusions>
 	  		<exclusion>
 	  			<artifactId>spring-asm</artifactId>
 	  			<groupId>org.springframework</groupId>
@@ -50,7 +49,7 @@
 	  			<artifactId>spring-context</artifactId>
 	  			<groupId>org.springframework</groupId>
 	  		</exclusion>
-	  	</exclusions>
+	  	</exclusions>-->
 	  </dependency>
 	  
 	  
@@ -59,7 +58,7 @@
 		<artifactId>spring-security-taglibs</artifactId>
 		<version>${springSecurityVersion}</version>
 	  </dependency>
-	  -->
+
 	  
 	  <!-- context ver -->
 	  <dependency>
@@ -68,41 +67,35 @@
 		<version>${springVersion}</version>
 	  </dependency>
 	  
-	  <!--
 	  <dependency>
 	  	<groupId>org.springframework.security</groupId> 
 	  	<artifactId>spring-security-openid</artifactId> 
 	  	<version>${springSecurityVersion}</version>
-	  	<exclusions>
+	  	<!--<exclusions>
 	  		<exclusion>
 	  			<artifactId>spring-context</artifactId>
 	  			<groupId>org.springframework</groupId>
 	  		</exclusion>
-	  	</exclusions>
-	  </dependency>
-	  <dependency>
-	  	<groupId>org.springframework.security</groupId> 
-	  	<artifactId>spring-security-taglibs</artifactId> 
-	  	<version>${springSecurityVersion}</version>
-	  	<exclusions>
-	  		<exclusion>
-	  			<artifactId>spring-context</artifactId>
-	  			<groupId>org.springframework</groupId>
-	  		</exclusion>
-	  	</exclusions>
+	  	</exclusions>-->
 	  </dependency>
 	  <dependency>
 	  	<groupId>org.springframework.security</groupId> 
 	  	<artifactId>spring-security-config</artifactId> 
 	  	<version>${springSecurityVersion}</version>
-	  	<exclusions>
+	  	<!--<exclusions>
 	  		<exclusion>
 	  			<artifactId>spring-context</artifactId>
 	  			<groupId>org.springframework</groupId>
 	  		</exclusion>
-	  	</exclusions>
+	  	</exclusions>-->
 	  </dependency>
-	  -->
+
+	  <dependency>
+		  <groupId>xml-apis</groupId>
+		  <artifactId>xml-apis</artifactId>
+		  <version>1.4.01</version>
+	  </dependency>
+
 	  <!--  spring orm -->
 	  <!--
 	  <dependency>
@@ -135,6 +128,8 @@
 		<version>${springVersion}</version>
 	  </dependency>
 	  -->
+
+
 	  
 	  <dependency>
 		<groupId>org.springframework</groupId>
@@ -251,8 +246,8 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-            <source>1.6</source>
-            <target>1.6</target>
+            <source>1.8</source>
+            <target>1.8</target>
             </configuration>
           </plugin>
         </plugins>
@@ -260,9 +255,10 @@
 
 
     <properties>
-   	  <springVersion>4.0.6.RELEASE</springVersion>
-      <springSecurityVersion>4.0.2.RELEASE</springSecurityVersion>
-      <apacheTilesVersion>3.0.4</apacheTilesVersion>
+		<springVersion>4.0.6.RELEASE</springVersion>
+		<springSecurityVersion>4.0.2.RELEASE</springSecurityVersion>
+		<apacheTilesVersion>3.0.4</apacheTilesVersion>
+		<hibernateVersion>4.3.10.Final</hibernateVersion>
     </properties>
      		
 </project>

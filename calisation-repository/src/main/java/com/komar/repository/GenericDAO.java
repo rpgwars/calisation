@@ -1,4 +1,4 @@
-package com.comar.repository;
+package com.komar.repository;
 
 import javax.persistence.criteria.CriteriaQuery;
 

@@ -4,6 +4,7 @@
     <groupId>calisation.com</groupId>
     <artifactId>calisation</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../calisation/pom.xml</relativePath>
   </parent>
   <artifactId>calisation-domain-pojo</artifactId>
 </project>

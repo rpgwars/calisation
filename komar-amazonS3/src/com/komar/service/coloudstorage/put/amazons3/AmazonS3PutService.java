@@ -12,11 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
-import com.komar.domain.transfer.cloudstorage.put.PutResult;
+import com.komar.domain.transfer.cloudstorage.put.PutResultTO;
 import com.komar.service.cloudstorage.put.PutException;
 import com.komar.service.cloudstorage.put.PutService;
 
@@ -32,7 +31,7 @@ public class AmazonS3PutService implements PutService{
 	private final static Logger logger = Logger.getLogger(AmazonS3PutService.class.getName());
 	
 	@Override
-	public PutResult put(MultipartFile file) throws PutException{
+	public PutResultTO put(MultipartFile file) throws PutException{
         //AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider("KOMAR_S3"));
         try {
             InputStream inputStream = file.getInputStream();
@@ -42,7 +41,7 @@ public class AmazonS3PutService implements PutService{
             PutObjectResult putObjectResult = amazonS3Client.putObject(new PutObjectRequest(
             		                 bucketName, key, inputStream, objectMetadata));
             inputStream.close();
-            return new AmazonS3PutResult(bucketName, key);
+            return new AmazonS3PutResultTO(bucketName, key);
          } catch (AmazonServiceException ase) {
              
             String message = String.format("AmazonServiceException %s %s %s %s %s",

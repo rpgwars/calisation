@@ -17,10 +17,12 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         
     <import resource="classpath:/amazonS3Beans.xml" />
+    <import resource="classpath:/validators.xml" />
+    <import resource="classpath:/service.xml" />
     <!--  <bean id="openJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter"/>-->
        
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-    	<property name="persistenceUnitName" value="clust" />
+    	<property name="persistenceUnitName" value="komar" />
     	<!-- <property name="jpaVendorAdapter" ref="openJpaVendorAdapter" /> -->
 	</bean>
         
@@ -36,6 +38,8 @@
 	<context:component-scan base-package="com.calisation.server.repository"/>
 	<context:component-scan base-package="com.calisation.server.service"/>
 	<context:component-scan base-package="com.komar.service.coloudstorage.put.amazons3"/>
+    <context:component-scan base-package="com.komar.service.application"/>
+    <context:component-scan base-package="com.komar.repository"/>
 	
 	 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

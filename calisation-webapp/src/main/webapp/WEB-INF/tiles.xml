@@ -32,6 +32,10 @@
     <definition name="uploadSuccess" extends="mainTemplate">
     	<put-attribute name="body" value="/WEB-INF/jsp/template/subpage/sandbox2.jsp" />
     </definition>
+
+    <definition name="addAccount" extends="mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/template/subpage/addAccount.jsp" />
+    </definition>
     
     <definition name="about" extends="mainTemplate">
     	<put-attribute name="body" value="/WEB-INF/jsp/template/subpage/about.jsp" />

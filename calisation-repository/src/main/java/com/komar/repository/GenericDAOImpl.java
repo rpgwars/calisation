@@ -1,4 +1,4 @@
-package com.comar.repository;
+package com.komar.repository;
 
 import java.util.List;
 
@@ -10,9 +10,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.calisation.server.domain.UserCode;
-import com.calisation.server.repository.exception.UserCodeNotFoundException;
-import com.komar.domain.account.Account;
 import com.komar.domain.account.exception.NotFound;
 
 public class GenericDAOImpl<T> implements GenericDAO<T>{

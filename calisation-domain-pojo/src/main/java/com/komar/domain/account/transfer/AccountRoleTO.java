@@ -1,15 +1,16 @@
 package com.komar.domain.account.transfer;
 
-public class AccountRoleTO {
-	
+public enum AccountRoleTO {
+
+	ROLE_USER("ROLE_USER");
+
+	AccountRoleTO(String role) {
+		this.role = role;
+	}
+
 	private String role;
 
 	public String getRole() {
 		return role;
 	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 }

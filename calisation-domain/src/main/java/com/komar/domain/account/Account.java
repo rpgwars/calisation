@@ -2,17 +2,9 @@ package com.komar.domain.account;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
 
 import com.komar.domain.account.transfer.AccountRoleTO;
 import com.komar.domain.account.transfer.AccountTO;
@@ -32,9 +24,10 @@ public class Account {
 	}
 	
 	public void addAccountRole(AccountRole accountRole){
-		if(!this.accountRole.contains(accountRole))
+		if(!this.accountRole.contains(accountRole)) {
 			accountRole.setAccount(this);
-			this.accountRole.add(accountRole); 
+			this.accountRole.add(accountRole);
+		}
 	}
 
 	public void setAccountRole(List<AccountRole> accountRole) {
@@ -54,7 +47,7 @@ public class Account {
 		this.id = id;
 	}
 	
-	@Basic
+	@Column
 	private String name;
 
 	public String getName() {
@@ -65,7 +58,7 @@ public class Account {
 		this.name = name;
 	}
 	
-	@Basic
+	@Column
 	private String email;
 
 	public String getEmail() {
@@ -77,7 +70,7 @@ public class Account {
 	}
 	
 	
-	@Basic
+	@Column
 	private String password;
 
 	public String getPassword() {
@@ -88,22 +81,27 @@ public class Account {
 		this.password = password;
 	} 
 	
-	public static Account map(AccountTO accountTO){
-		Account account = new Account(accountTO);
-		account.getAccountRole()
-			.forEach(accountRole -> accountRole.setAccount(account));
-		return account;
+	public Account(){
+
 	}
 	
 	public Account(AccountTO accountTO){
 		this.name = accountTO.getName();
 		this.email = accountTO.getEmail();
 		this.password = accountTO.getPassword();
-		for(AccountRoleTO accountRoleTO : accountTO.getAccountRoles()){
-			addAccountRole(new AccountRole(accountRoleTO.getRole()));
-		}
 		
 		accountTO.getAccountRoles()
-			.forEach(accountRole -> addAccountRole(new AccountRole(accountRole.getRole())));
+			.forEach(accountRole -> addAccountRole(new AccountRole(accountRole)));
+	}
+
+	public AccountTO toTO(){
+		AccountTO accountTO = new AccountTO();
+		accountTO.setEmail(email);
+		accountTO.setName(name);
+		List<AccountRoleTO> accountRoleTOs = accountRole.stream()
+				.map(accountRole -> accountRole.toTO())
+				.collect(Collectors.toList());
+		accountTO.setAccountRoles(accountRoleTOs);
+		return accountTO;
 	}
 }

@@ -2,11 +2,11 @@ package com.komar.domain.transfer.cloudstorage.put;
 
 import java.util.List;
 
-public abstract class PutResult 
+public abstract class PutResultTO
 {
 	protected String retrievalData;
 	
-	protected PutResult(String retrievalData)
+	protected PutResultTO(String retrievalData)
 	{
 		this.retrievalData = retrievalData;
 	}
@@ -15,6 +15,6 @@ public abstract class PutResult
 	
 	@Override
 	public String toString(){
-		return "PutResult " + retrievalData; 
+		return "PutResultTO " + retrievalData;
 	}
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DepartmentDAOImpl implements DepartmentDAO {
 
-	@PersistenceContext(unitName="clust")
+	@PersistenceContext(unitName="komar")
 	private EntityManager em; 
 	
 	@Override

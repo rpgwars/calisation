@@ -1,29 +1,16 @@
 package com.komar.domain.account;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.komar.domain.account.transfer.AccountRoleTO;
 
-
-@Entity
 @Table
+@Entity
 public class AccountRole {
 	
 	public AccountRole(){
-		this.setRole("ROLE_ANONYMOUS"); 
-		
-	}
-	
-	public AccountRole(String role){
-		this.setRole(role); 
-	}
 
+	}
 	
 	@Id
 	@GeneratedValue
@@ -37,10 +24,8 @@ public class AccountRole {
 		this.roleId = roleId;
 	}
 	
-	@Basic
-	private String role; 
-	
-	
+	@Column
+	private String role;
 
 	public String getRole() {
 		return role;
@@ -64,6 +49,11 @@ public class AccountRole {
 	
 	public AccountRole(AccountRoleTO accountRoleTO){
 		this.role = accountRoleTO.getRole();
+	}
+
+	public AccountRoleTO toTO(){
+		AccountRoleTO accountRoleTO = AccountRoleTO.valueOf(role);
+		return accountRoleTO;
 	}
 
 }
