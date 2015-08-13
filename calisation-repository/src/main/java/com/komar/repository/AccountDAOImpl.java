@@ -18,29 +18,29 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 
 @Repository
-public class AccountDAOImpl extends GenericDAOImpl<Account> implements AccountDAO{
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Account findAccount(String login) throws AccountNotFound {
+public class AccountDAOImpl extends GenericDAOImpl<Account> implements AccountDAO {
 
-		try {
-			return this.isExisting(queryUtils.getSimpleCriteria(entityManager, Account.class, Account.emailColumn, login));
-		} catch (NotFound e) {
-			throw new AccountNotFound();
-		}
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public Account findAccount(String login) throws AccountNotFound {
 
-	@Override
-	@Transactional
-	public void saveAccount(AccountTO account) throws AccountAlreadyExists{
+        try {
+            return this.isExisting(queryUtils.getSimpleCriteria(entityManager, Account.class, Account.emailColumn, login));
+        } catch (NotFound e) {
+            throw new AccountNotFound();
+        }
+    }
 
-		try {
-			findAccount(account.getEmail());
-			throw new AccountAlreadyExists();
-		} catch (AccountNotFound e) {	
-			super.save(new Account(account));
-			return; 
-		}
-	}
+    @Override
+    @Transactional
+    public void saveAccount(AccountTO account) throws AccountAlreadyExists {
+
+        try {
+            findAccount(account.getEmail());
+            throw new AccountAlreadyExists();
+        } catch (AccountNotFound e) {
+            super.save(new Account(account));
+            return;
+        }
+    }
 }
