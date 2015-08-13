@@ -34,7 +34,6 @@ public class AccountDAOImpl extends GenericDAOImpl<Account> implements AccountDA
     @Override
     @Transactional
     public void saveAccount(AccountTO account) throws AccountAlreadyExists {
-
         try {
             findAccount(account.getEmail());
             throw new AccountAlreadyExists();
