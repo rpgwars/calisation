@@ -1,22 +1,30 @@
 package com.komar.service.coloudstorage.put.amazons3;
 
+import com.komar.domain.cloudstorage.resource.transfer.put.PutResultTO;
+
 import java.util.Arrays;
 import java.util.List;
 
-import com.komar.domain.transfer.cloudstorage.put.PutResultTO;
+
 
 public class AmazonS3PutResultTO extends PutResultTO {
 
 	private static final String delimiter = "/";
+	private static final String AMAZON_S3 = "AMAZON_S3";
 	
-	public AmazonS3PutResultTO(String bucketName, String key)
+	public AmazonS3PutResultTO(String bucketName, String key, String retrievalLink, String mimeType)
 	{
-		super(new StringBuilder(bucketName).append(delimiter).append(key).toString());
+		super(new StringBuilder(bucketName).append(delimiter).append(key).toString(), retrievalLink, mimeType);
 	}
 	
 	@Override
-	protected List<String> getSplittedRetrievalData(String retrievalData) {
+	public List<String> getSplittedRetrievalData(String retrievalData) {
 		return Arrays.asList(retrievalData.split(delimiter));
+	}
+
+	@Override
+	public String getStorageProviderName() {
+		return AMAZON_S3;
 	}
 
 }

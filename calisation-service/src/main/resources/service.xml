@@ -5,4 +5,18 @@
 
         <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
+        <bean id="resourceTypeResolver" class="com.komar.service.resource.ResourceTypeResolver">
+            <property name="mimeTypeResourceTypeMap">
+                <map>
+                    <entry key="video/quicktime" value="VIDEO"/>
+                    <entry key="video/mp4" value="VIDEO"/>
+                    <entry key="video/x-flv" value="VIDEO"/>
+                    <entry key="video/ogg" value="VIDEO"/>
+                    <entry key="audio/mpeg3" value="AUDIO"/>
+                    <entry key="audio/x-mpeg-3" value="AUDIO"/>
+                    <entry key="audio/x-mpeg" value="AUDIO"/>
+                    <entry key="audio/ogg" value="AUDIO"/>
+                </map>
+            </property>
+        </bean>
 </beans>

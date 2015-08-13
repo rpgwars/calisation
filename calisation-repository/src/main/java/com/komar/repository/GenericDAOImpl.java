@@ -5,10 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 
 import com.komar.domain.account.exception.NotFound;
 
@@ -42,12 +41,21 @@ public class GenericDAOImpl<T> implements GenericDAO<T>{
 	
 	public static class QueryUtils<T>{
 		
-		public CriteriaQuery<T> getSimpleCriteria(EntityManager entityManager, Class<T> cls, String column, String value){
+		public CriteriaQuery<T> getSimpleCriteria(EntityManager entityManager, Class<T> cls, String column, Object value){
 			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder(); 
 			CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(cls);
-			Root<T> accountRoot = criteriaQuery.from(cls);
-			Predicate loginPredicate = criteriaBuilder.equal(accountRoot.get(column), value);
+			Root<T> root = criteriaQuery.from(cls);
+			Predicate loginPredicate = criteriaBuilder.equal(root.get(column), value);
 			criteriaQuery.where(loginPredicate);
+			return criteriaQuery;
+		}
+
+		public <U> CriteriaQuery<T> getJoinedCriteriaConditionOnJoined(EntityManager entityManager, Class<T> rootCls, String joinAttribute, String column, Object value) {
+			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+			CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(rootCls);
+			Join<T, U> join = criteriaQuery.from(rootCls).join(joinAttribute);
+			Predicate predicate = criteriaBuilder.equal(join.get(column), value);
+			criteriaQuery.where(predicate);
 			return criteriaQuery;
 		}
 	}

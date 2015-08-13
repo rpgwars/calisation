@@ -24,13 +24,18 @@
     <definition name="simple" extends="mainTemplate">
         <put-attribute name="body" value="/WEB-INF/jsp/template/subpage/hello.jsp" />
     </definition>
-    
+
+    <!--
 	<definition name="sandbox" extends="mainTemplate">
     	<put-attribute name="body" value="/WEB-INF/jsp/template/subpage/sandbox.jsp" />
     </definition>
     
     <definition name="uploadSuccess" extends="mainTemplate">
     	<put-attribute name="body" value="/WEB-INF/jsp/template/subpage/sandbox2.jsp" />
+    </definition>
+    -->
+    <definition name="myResources" extends="mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/template/subpage/myResources.jsp" />
     </definition>
 
     <definition name="addAccount" extends="mainTemplate">

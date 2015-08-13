@@ -3,6 +3,7 @@ package com.calisation.server.controller;
 import java.util.Collections;
 import java.util.Map;
 
+import com.komar.domain.cloudstorage.resource.transfer.put.PutResultTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.calisation.server.domain.transfer.presentation.PositionNotificationPresentation;
 import com.calisation.server.service.PositionNotificationService;
-import com.komar.domain.transfer.cloudstorage.put.PutResultTO;
 import com.komar.service.cloudstorage.put.PutException;
 import com.komar.service.cloudstorage.put.PutService;
 
@@ -45,8 +45,7 @@ public class SimpleController {
 	public String sandbox(Map<String, Object> map){
 		return "sandbox";
 	}
-	
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+
     public ModelAndView uploadFileHandler(@RequestParam("name") String name,
             @RequestParam("file") MultipartFile file) {
  

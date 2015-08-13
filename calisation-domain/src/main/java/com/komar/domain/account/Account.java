@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import com.komar.domain.account.transfer.AccountRoleTO;
 import com.komar.domain.account.transfer.AccountTO;
+import com.komar.domain.cloudstorage.resource.Resource;
 
 @Table
 @Entity
@@ -17,7 +18,7 @@ public class Account {
 	public static final String emailColumn = "email";
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.EAGER, targetEntity = AccountRole.class)
-	private List<AccountRole> accountRole = new ArrayList<AccountRole>();
+	private List<AccountRole> accountRole = new ArrayList<>();
 	
 	public List<AccountRole> getAccountRole() {
 		return accountRole;
@@ -34,7 +35,22 @@ public class Account {
 		for(AccountRole ar : accountRole)
 			this.addAccountRole(ar);
 	}
-	
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.EAGER, targetEntity = Resource.class)
+	private List<Resource> resources = new ArrayList<>();
+
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+	public void addResource(Resource resource){
+		this.resources.add(resource);
+	}
+
+	public void setResource(List<Resource> resources) {
+		this.resources = resources;
+	}
+
 	@Id
 	@GeneratedValue
 	private Integer id;

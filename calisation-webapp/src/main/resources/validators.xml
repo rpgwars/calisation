@@ -12,4 +12,10 @@
         <constructor-arg value="true"/>
     </bean>
 
+    <bean id="controller.validator.MultipartFileValidator"
+          class="com.calisation.controller.validator.ResourceTOValidator">
+        <property name="tika" ref="tika"/>
+    </bean>
+
+    <bean id="tika" class="org.apache.tika.Tika"/>
 </beans>

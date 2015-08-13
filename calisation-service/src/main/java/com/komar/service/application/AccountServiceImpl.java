@@ -40,7 +40,7 @@ public class AccountServiceImpl implements AccountService {
 	public void saveAccount(AccountTO account) throws AccountAlreadyExists {
 		account.setPassword(passwordEncoder.encode(account.getPassword()));
 		account.setAccountRoles(Arrays.asList(AccountRoleTO.ROLE_USER));
-		accountDao.saveAccount(new Account(account));
+		accountDao.saveAccount(account);
 	}
 
 	@Override
