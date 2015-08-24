@@ -46,6 +46,7 @@ public class SimpleController {
 		return "sandbox";
 	}
 
+	/*
     public ModelAndView uploadFileHandler(@RequestParam("name") String name,
             @RequestParam("file") MultipartFile file) {
  
@@ -75,7 +76,7 @@ public class SimpleController {
 		        	}
         		};
         }
-    }
+    }*/
 
 	
 	@RequestMapping("/about")

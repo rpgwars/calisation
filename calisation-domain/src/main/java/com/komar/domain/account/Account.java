@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import com.komar.domain.account.transfer.AccountRoleTO;
 import com.komar.domain.account.transfer.AccountTO;
+import com.komar.domain.cloudstorage.resource.Clip;
 import com.komar.domain.cloudstorage.resource.Resource;
 
 @Table
@@ -49,6 +50,21 @@ public class Account {
 
 	public void setResource(List<Resource> resources) {
 		this.resources = resources;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.EAGER, targetEntity = Clip.class)
+	private List<Clip> clips = new ArrayList<>();
+
+	public List<Clip> getClips() {
+		return clips;
+	}
+
+	public void addClip(Clip clip){
+		this.clips.add(clip);
+	}
+
+	public void setClips(List<Clip> clips) {
+		this.clips = clips;
 	}
 
 	@Id

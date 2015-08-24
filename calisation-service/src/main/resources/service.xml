@@ -12,10 +12,24 @@
                     <entry key="video/mp4" value="VIDEO"/>
                     <entry key="video/x-flv" value="VIDEO"/>
                     <entry key="video/ogg" value="VIDEO"/>
+                    <entry key="audio/mpeg" value="AUDIO"/>
                     <entry key="audio/mpeg3" value="AUDIO"/>
                     <entry key="audio/x-mpeg-3" value="AUDIO"/>
                     <entry key="audio/x-mpeg" value="AUDIO"/>
                     <entry key="audio/ogg" value="AUDIO"/>
+                </map>
+            </property>
+            <property name="mimeTypeExtensionMap">
+                <map>
+                    <entry key="video/quicktime" value=".mp4"/>
+                    <entry key="video/mp4" value=".mp4"/>
+                    <entry key="video/x-flv" value=".flv"/>
+                    <entry key="video/ogg" value=".ogg"/>
+                    <entry key="audio/mpeg" value=".mp3"/>
+                    <entry key="audio/mpeg3" value=".mp3"/>
+                    <entry key="audio/x-mpeg-3" value=".mp3"/>
+                    <entry key="audio/x-mpeg" value=".mp3"/>
+                    <entry key="audio/ogg" value=".ogg"/>
                 </map>
             </property>
         </bean>

@@ -1,4 +1,4 @@
-package com.komar.service.coloudstorage.put.amazons3;
+package com.komar.service.coloudstorage.amazons3;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

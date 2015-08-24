@@ -10,5 +10,7 @@
     <bean id="profileCredentialsProvider" class="com.amazonaws.auth.profile.ProfileCredentialsProvider">
     	<constructor-arg type="String" value="KOMAR_S3"/>
     </bean>
+
+    <bean id="amazonS3KeyKeyGenerator" class="com.komar.service.coloudstorage.amazons3.AmazonS3KeyGenerator"/>
         
 </beans>

@@ -14,6 +14,7 @@
       <module>../calisation-service</module>
       <module>../calisation-repository</module>
       <module>../calisation-domain-pojo</module>
+      <module>../komar-amazonS3</module>
     </modules>
 
 

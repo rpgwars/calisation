@@ -16,4 +16,8 @@
     <link rel="stylesheet" href="<%=pathToCss%><spring:theme code="bootstrap"/>" type="text/css"/>
     <link rel="stylesheet" href="<%=pathToCss%><spring:theme code="flat-css"/>" type="text/css"/>
     <link rel="stylesheet" href="<%=pathToCss%><spring:theme code="main-css"/>" type="text/css"/>
+    <link rel="stylesheet" href="<%=pathToCss%><spring:theme code="ngProgress-css"/>" type="text/css"/>
+    <link rel="stylesheet" href="<%=pathToCss%><spring:theme code="angularFlash-css"/>" type="text/css"/>
+    <link rel="stylesheet" href="<%=pathToCss%><spring:theme code="ngDialog-css"/>" type="text/css"/>
+    <link rel="stylesheet" href="<%=pathToCss%><spring:theme code="ngDialog-theme-default-css"/>" type="text/css"/>
 </head>

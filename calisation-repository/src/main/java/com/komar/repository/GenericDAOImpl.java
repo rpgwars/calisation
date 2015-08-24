@@ -58,5 +58,16 @@ public class GenericDAOImpl<T> implements GenericDAO<T>{
 			criteriaQuery.where(predicate);
 			return criteriaQuery;
 		}
+
+		public <U> CriteriaQuery<T> getJoinedCriteriaConditionOnJoiningAndJoined(EntityManager entityManager, Class<T> rootCls,
+																				   String joinAttribute, String joinedColumn,
+																				   Object joinedValue, String joiningColumn, Object joiningValue){
+			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+			CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(rootCls);
+			Join<T, U> join = criteriaQuery.from(rootCls).join(joinAttribute);
+			Predicate joinedPredicate = criteriaBuilder.equal(join.get(joinedColumn), joinedValue);
+			Predicate joiningPredicate = criteriaBuilder.equal(join.get(joiningColumn), joiningValue);
+			criteriaQuery.where(criteriaBuilder.and(joinedPredicate, joiningPredicate));
+			return criteriaQuery;		}
 	}
 }

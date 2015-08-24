@@ -3,51 +3,17 @@ package com.komar.domain.cloudstorage.resource;
 import com.komar.domain.account.Account;
 import com.komar.domain.cloudstorage.StorageProvider;
 import com.komar.domain.cloudstorage.resource.transfer.ResourceType;
-import com.komar.domain.resource.transfer.ResourceTO;
-
+import com.komar.domain.resource.transfer.ClipTO;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Table
 @Entity
-public class Resource {
+public class Clip {
 
-    public static final String idColumn = "id";
     public static final String accountColumn = "account";
-
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "referencingResource", fetch = FetchType.EAGER, targetEntity = ResourceLink.class)
-    private List<ResourceLink> referencingResources = new ArrayList<>();*/
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "referencedResource", fetch = FetchType.EAGER, targetEntity = ResourceLink.class)
-    private List<ResourceLink> referencedResources = new ArrayList<>();
-
-    /*
-    public List<ResourceLink> getReferencingResources() {
-        return referencingResources;
-    }
-
-    public void linkReferencingResource(ResourceLink resourceLink){
-        referencingResources.add(resourceLink);
-    }
-
-    public void setReferencingResources(List<ResourceLink> referencingResources) {
-        this.referencingResources = referencingResources;
-    }
-    */
-    public List<ResourceLink> getReferencedResources() {
-        return referencedResources;
-    }
-
-    public void linkReferencedResource(ResourceLink resourceLink){
-        this.referencedResources.add(resourceLink);
-    }
-
-    public void setReferencedResources(List<ResourceLink> referencedResources) {
-        this.referencedResources = referencedResources;
-    }
+    public static final String retrievalLinkColumn = "retrievalLink";
 
     @ManyToOne(targetEntity = Account.class, fetch = FetchType.EAGER)
     private Account account;
@@ -127,19 +93,29 @@ public class Resource {
         this.storageProvider = storageProvider;
     }
 
-    public static Resource getResource(ResourceType resourceType){
-        switch (resourceType){
-            case AUDIO:
-                return new AudioResource();
-            case VIDEO:
-                return new VideoResource();
-            default:
-                throw new RuntimeException("");
-        }
+    @Column
+    public boolean withAudio;
+
+    public boolean isWithAudio() {
+        return withAudio;
     }
 
-    public ResourceTO toTO(){
-        ResourceTO resourceTO = new ResourceTO();
-        return resourceTO;
+    public void setWithAudio(boolean withAudio) {
+        this.withAudio = withAudio;
+    }
+
+    @Enumerated
+    private ResourceType resourceType;
+
+    public ResourceType getResourceType() {
+        return resourceType;
+    }
+
+    public void setResourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public ClipTO toTO(){
+        return new ClipTO(name, retrievalLink, withAudio, resourceType);
     }
 }

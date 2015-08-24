@@ -10,6 +10,7 @@
   <class>com.komar.domain.cloudstorage.resource.AudioResource</class>
   <class>com.komar.domain.cloudstorage.resource.VideoResource</class>
   <class>com.komar.domain.cloudstorage.resource.ResourceLink</class>
+  <class>com.komar.domain.cloudstorage.resource.Clip</class>
   <properties>
   <!---->
    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>

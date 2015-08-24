@@ -1,0 +1,42 @@
+<style>
+    .btn-droppable { height: 30px; paddig-right: 5% }
+</style>
+
+<div class="ngdialog-message">
+    <h2>Wstaw klipy audio</h2>
+    <div ng-controller="audioMergingController">
+        <div style="height: 50px">
+            <div flash-message="2000"></div>
+        </div>
+        <div>
+            <div>
+                <div class="btn-info" style="border: solid; display: inline-block;" ng-style="{ 'width' : clipsDurationPercentage[{{$index}}]}" ng-repeat="item in videoClips">
+                    {{item.name}}
+                </div>
+            </div>
+        </div>
+        <div>
+            <div style="float : left; width: 40%">
+                <h3>Video</h3>
+                <div class="btn-info" style="border: solid;" ng-repeat="item in videoClips">
+                    {{item.name}}
+                </div>
+            </div>
+            <div style="float: right; width: 40%">
+                <h3>Audio</h3><!--{{!videoClips[$index].withAudio}}  {{!videoClips[$index].withAudio}}-->
+                <div ng-repeat="item in videoClips" style="border: solid;">
+                    <div class="btn-droppable" data-drop="true" ng-model='selectedAudioClips' jqyoui-droppable="{index: {{$index}}, beforeDrop:'beforeDrop', onDrop:'dropCallback',onOver: 'overCallback', onOut: 'outCallback'}">
+                       <div class="btn-info btn-draggable" ng-show="selectedAudioClips[$index].name" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="selectedAudioClips" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">{{selectedAudioClips[$index].name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <BR/><BR/><BR/><BR/><BR/><BR/><BR/><BR/><BR/><BR/>
+        <div>
+            <h3>Audio</h3>
+            <div style="border : solid" class="btn-droppable" ng-repeat="item in audioClipsCopy" data-drop="true" ng-model='audioClipsCopy' jqyoui-droppable="{index: {{$index}}, beforeDrop:'beforeDrop'}">
+                <div class="btn-info btn-draggable" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="audioClipsCopy" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback(item, $index)', onStop: 'stopCallback', onDrag: 'dragCallback'}" ng-hide="!item.name">{{item.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>

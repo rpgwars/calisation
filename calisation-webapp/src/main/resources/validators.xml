@@ -13,9 +13,11 @@
     </bean>
 
     <bean id="controller.validator.MultipartFileValidator"
-          class="com.calisation.controller.validator.ResourceTOValidator">
+          class="com.calisation.controller.validator.UploadedFileValidator">
         <property name="tika" ref="tika"/>
     </bean>
+
+    <bean id="controller.validator.EditValidator" class="com.calisation.controller.validator.EditValidator"/>
 
     <bean id="tika" class="org.apache.tika.Tika"/>
 </beans>

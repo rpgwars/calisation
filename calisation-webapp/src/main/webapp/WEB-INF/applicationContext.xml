@@ -46,8 +46,19 @@
 		<property name="maxUploadSize" value="50000000"/>
     </bean>
     
-    <bean id="putService" class="com.komar.service.coloudstorage.put.amazons3.AmazonS3PutService">
+    <bean id="putService" class="com.komar.service.coloudstorage.amazons3.put.AmazonS3PutService">
     	<property name="bucketName" value="komar-sandbox"/>
+    </bean>
+
+    <bean id="deleteService" class="com.komar.service.coloudstorage.amazons3.delete.AmazonS3DeleteService">
+        <property name="bucketName" value="komar-clips"/>
+    </bean>
+
+    <bean id="putEditService" class="com.komar.service.coloudstorage.amazons3.putedit.AmazonS3PutEditPythonService">
+        <property name="pythonSrcriptPath" value="/home/damian/komar/python/mediaEditingUploadInterface.py"/>
+        <property name="bucketName" value="komar-clips"/>
+        <property name="profileName" value="KOMAR_S3"/>
+        <property name="tmpFilesFolderPath" value="/home/damian/tmp/"/>
     </bean>
     
 	 
@@ -83,6 +94,8 @@
     <context:component-scan base-package="pl.agh.edu.carecenter.server.service"/>
 -->
     <mvc:resources mapping="/themes/**" location="/themes/" cache-period="31556926" />
+    <mvc:resources mapping="/js/**" location="/WEB-INF/js/" cache-period="1" />
+    <mvc:resources mapping="/partials/**" location="/WEB-INF/partials/" cache-period="1" />
 
 
 </beans>

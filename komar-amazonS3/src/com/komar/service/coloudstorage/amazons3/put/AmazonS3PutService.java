@@ -1,4 +1,4 @@
-package com.komar.service.coloudstorage.put.amazons3;
+package com.komar.service.coloudstorage.amazons3.put;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.komar.domain.cloudstorage.resource.transfer.put.PutResultTO;
+import com.komar.domain.resource.transfer.UploadedFile;
+import com.komar.service.coloudstorage.amazons3.AmazonS3KeyGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,13 +37,13 @@ public class AmazonS3PutService implements PutService{
 	private final static Logger logger = Logger.getLogger(AmazonS3PutService.class.getName());
 	
 	@Override
-	public PutResultTO put(MultipartFile file) throws PutException{
+	public PutResultTO put(UploadedFile file) throws PutException{
         //AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider("KOMAR_S3"));
         try {
 			String key = keyGenerator.getKey();
-			putObject(file, key);
+			putObject(file.getFile(), key);
 			URL url = getObjectUrl(key);
-            return new AmazonS3PutResultTO(bucketName, key, url.toString().split("\\?")[0], file.getContentType());
+            return new AmazonS3PutResultTO(bucketName, key, url.toString().split("\\?")[0], file.getFile().getContentType());
          } catch (AmazonServiceException ase) {
             String message = String.format("AmazonServiceException %s %s %s %s %s",
             		ase.getMessage(), ase.getStatusCode(), ase.getErrorCode(), ase.getErrorType(), ase.getRequestId());

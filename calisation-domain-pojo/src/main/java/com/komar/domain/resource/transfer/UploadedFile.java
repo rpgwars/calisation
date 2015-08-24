@@ -8,6 +8,7 @@ public class UploadedFile {
     private String name;
     private MultipartFile file;
     private ResourceType resourceType;
+    private String extension;
 
     public String getName() {
         return name;
@@ -31,5 +32,13 @@ public class UploadedFile {
 
     public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 }

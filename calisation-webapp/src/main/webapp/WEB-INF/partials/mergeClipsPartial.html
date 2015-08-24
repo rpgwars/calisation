@@ -1,0 +1,15 @@
+<style>
+    .btn-droppable { height: 30px; paddig-right: 5% }
+</style>
+
+<div class="ngdialog-message">
+    <h2>Ustaw kolejność klipów</h2>
+    <div ng-controller="videoMergingController">
+        <div class="btn-droppable" ng-repeat="item in videoClips" data-drop="true" ng-model='videoClips' jqyoui-droppable="{index: {{$index}}, beforeDrop:'beforeDrop'}">
+            <div class="btn-info btn-draggable" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="videoClips" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback(item, $index)', onStop: 'stopCallback', onDrag: 'dragCallback'}" ng-hide="!item.name">{{item.name}}</div>
+        </div>
+    </div>
+</div>
+<div class="ngdialog-buttons mt">
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="openAudioMergingDialog()">►</button>
+</div>
