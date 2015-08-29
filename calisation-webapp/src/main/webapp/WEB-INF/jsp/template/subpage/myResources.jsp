@@ -12,7 +12,7 @@
 </script>
 
 <div ng-controller="ClipsController">
-    <div flash-message="5000"></div>
+    <div id="mainFlash" flash-message="5000"></div>
     <div ng-controller="ClipsTabController">
 
         <ul class="nav nav-pills">
@@ -38,7 +38,7 @@
                         <source ng-src="{{videoClip.url | trusted}}"/>
                     </video>
                     <div>
-                        <button ng-click="{deleteClip({{videoClip.url}})}">Delete</button>
+                        <button ng-click="deleteClip(videoClip.url)">Delete</button>
                     </div>
                 </div>
                 <br style="clear: left;" />
@@ -58,7 +58,7 @@
                         <source ng-src="{{audioClip.url | trusted}}"/>
                     </audio>
                     <div>
-                        <button ng-click="{deleteClip({{audioClip.url}})}">Delete</button>
+                        <button ng-click="deleteClip(audioClip.url)">Delete</button>
                     </div>
                 </div>
                 <br style="clear: left;" />

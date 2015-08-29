@@ -7,7 +7,7 @@ def getVideoClip(filePath, start, end, withAudio, bucketName, profileName):
     videoClipFile = ""
     try:
         videoClipFile = moviepyInterface.makeVideoClip(filePath, start, end, withAudio)
-        key = filePath.split('/')[-1:]
+        key = filePath.split('/')[-1:][0]
         clipLink = botoInterface.putClip(profileName, bucketName, videoClipFile, key)
         print clipLink
         return clipLink
@@ -20,7 +20,7 @@ def getAudioClip(filePath, start, end, bucketName, profileName):
     audioClipFile = ""
     try:
         audioClipFile = moviepyInterface.makeAudioClip(filePath, start, end)
-        key = filePath.split('/')[-1:]
+        key = filePath.split('/')[-1:][0]
         clipLink = botoInterface.putClip(profileName, bucketName, audioClipFile, key)
         print clipLink
         return clipLink

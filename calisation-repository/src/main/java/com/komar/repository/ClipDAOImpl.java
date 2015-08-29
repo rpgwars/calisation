@@ -46,7 +46,9 @@ public class ClipDAOImpl extends GenericDAOImpl<Clip> implements ClipDAO {
                         Account.emailColumn, login, Clip.retrievalLinkColumn, url);
         TypedQuery<Clip> typedQuery = entityManager.createQuery(clipFromAccountCriteriaQuery);
         Clip clip = typedQuery.getSingleResult();
-        if(clip != null)
-            entityManager.remove(clip);
+        if(clip != null) {
+            clip.setAccount(null);
+            delete(clip);
+        }
     }
 }

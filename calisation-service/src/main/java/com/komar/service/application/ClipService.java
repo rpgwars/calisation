@@ -13,5 +13,6 @@ public interface ClipService {
     List<ClipTO> getClips(String login);
     List<ClipTO> saveClip(PutResultTO putResultTO, String login, String name, ResourceType resourceType, boolean withAudio)
             throws AccountNotFound, MaximalClipsNumberExceeded;
+    boolean isAddingClipPossible(String login) throws AccountNotFound, MaximalClipsNumberExceeded;
     void deleteClip(String login, String url);
 }

@@ -1,7 +1,7 @@
 document.getElementsByTagName('body').item(0).setAttribute('ng-app','clips')
 
 var clips = angular.module("clips", ['ngFileUpload', 'ngProgress', 'flash', 'ngDialog', 'ngDragDrop']);
-
+var maxClipsNumberAllowed = 100;
 
 clips.factory('videoClips', function(){
     return initialVideoClips;
@@ -60,9 +60,9 @@ clips.controller('ClipsController', ['$scope', 'Upload', '$http', 'ngProgressFac
     }
 
     $scope.deleteClip = function(url) {
-        $http.post('/myResources/removeClip', {url:url}).
+        $http.delete('/myResources/deleteClip?url=' + url).
             then(function(response) {
-                refreshClips(response);
+                refreshClips(response.data);
             }, function(response) {
                 alert('Wystąpił problem w trakcie usuwania klipu :( ');
             });
@@ -73,6 +73,9 @@ clips.controller('ClipsController', ['$scope', 'Upload', '$http', 'ngProgressFac
         if (this.file) {
             if(this.start >= this.end) {
                alert("Niepoprawny zakres początku i końca klipu");
+            }
+            else if(videoClips.length + audioClips.length > maxClipsNumberAllowed) {
+               alert("Możesz posiadać co najwyżej " + maxClipsNumberAllowed + " klipów. Usuń któryś przed dodaniem następnego.");
             }
             else{
                 /*$timeout(function() {
@@ -119,6 +122,7 @@ clips.controller('ClipsController', ['$scope', 'Upload', '$http', 'ngProgressFac
     };
 
     $scope.openVideoMergingDialog = function () {
+        document.getElementById("mainFlash").style.display = "none";
         ngDialog.open({
             template: '/partials/mergeClipsPartial.html',
             controller: 'videoMergingController',
@@ -200,8 +204,8 @@ clips.controller('ClipsController', ['$scope', 'Upload', '$http', 'ngProgressFac
 }]);
 
 //http://codef0rmer.github.io/angular-dragdrop/#/
-clips.controller('videoMergingController', ['$scope', 'videoClips', 'selectedAudioClips', 'ngDialog', '$q',
-    function($scope, videoClips, selectedAudioClips, ngDialog, $q) {
+clips.controller('videoMergingController', ['$scope', 'videoClips', 'selectedAudioClips', 'ngDialog', '$q', 'Flash',
+    function($scope, videoClips, selectedAudioClips, ngDialog, $q, Flash) {
 
     $scope.videoClips = videoClips;
 
@@ -210,7 +214,12 @@ clips.controller('videoMergingController', ['$scope', 'videoClips', 'selectedAud
         ngDialog.open({
             template: '/partials/mergeAudioPartial.html',
             controller : 'audioMergingController',
-            className: 'ngdialog-theme-default ngdialog-theme-custom'
+            className: 'ngdialog-theme-default ngdialog-theme-custom',
+            preCloseCallback: function(value){
+                document.getElementById("mainFlash").style.display = null;
+                Flash.dismiss();
+                return true;
+            }
         });
     };
 

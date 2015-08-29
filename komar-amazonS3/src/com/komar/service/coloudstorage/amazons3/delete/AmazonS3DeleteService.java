@@ -5,7 +5,6 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.komar.service.cloudstorage.delete.DeleteService;
-import com.komar.service.cloudstorage.put.PutException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.logging.Level;

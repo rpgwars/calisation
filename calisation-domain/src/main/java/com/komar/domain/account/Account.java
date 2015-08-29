@@ -52,7 +52,7 @@ public class Account {
 		this.resources = resources;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.EAGER, targetEntity = Clip.class)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = Clip.class)
 	private List<Clip> clips = new ArrayList<>();
 
 	public List<Clip> getClips() {

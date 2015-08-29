@@ -20,6 +20,7 @@
    <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/komar"/>
    <property name="javax.persistence.jdbc.user" value="root"/>
    <property name="javax.persistence.jdbc.password" value=""/>
+   <property name="hibernate.show_sql" value="true"/>
    <!--
    <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
    <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema" />

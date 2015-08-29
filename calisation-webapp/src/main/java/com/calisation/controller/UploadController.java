@@ -12,6 +12,7 @@ import com.komar.domain.resource.transfer.UploadedFile;
 import com.komar.service.application.ClipService;
 import com.komar.service.application.UploadService;
 import com.komar.service.application.exception.MaximalClipsNumberExceeded;
+import com.komar.service.cloudstorage.delete.DeleteService;
 import com.komar.service.cloudstorage.put.PutEditService;
 import com.komar.service.cloudstorage.put.PutException;
 import com.komar.service.cloudstorage.put.PutService;
@@ -49,6 +50,9 @@ public class UploadController {
 
     @Autowired
     private PutEditService putEditService;
+
+    @Autowired
+    private DeleteService deleteService;
 
     @Autowired
     private ClipService clipService;
@@ -103,6 +107,7 @@ public class UploadController {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
 
         try {
+            clipService.isAddingClipPossible(login);
             PutResultTO putResultTO = putEditService.putEdit(uploadedFile, edit);
             List<ClipTO> clipTOs = clipService.saveClip(putResultTO, login, name, uploadedFile.getResourceType(), withAudio);
             return new ResponseEntity<String>(objectMapper.writeValueAsString(clipTOs), HttpStatus.CREATED);
@@ -120,11 +125,13 @@ public class UploadController {
     }
 
     @RequestMapping(value = "/myResources/deleteClip", method = RequestMethod.DELETE)
-    public @ResponseBody ResponseEntity<String> addClip(@RequestParam String url) {
+    public @ResponseBody ResponseEntity<String> deleteClip(@RequestParam String url) {
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         clipService.deleteClip(login, url);
+        String[] splittedUrl = url.split("/");
+        deleteService.delete(splittedUrl[splittedUrl.length - 1], null);
         try {
-            return new ResponseEntity<String>(objectMapper.writeValueAsString(clipService.getClips(login)), HttpStatus.CREATED);
+            return new ResponseEntity<String>(objectMapper.writeValueAsString(clipService.getClips(login)), HttpStatus.OK);
         } catch (JsonProcessingException e) {
             logger.log(Level.WARNING, "Unable to parse to json objects", e);
             return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -174,6 +181,10 @@ public class UploadController {
 
     public void setClipService(ClipService clipService) {
         this.clipService = clipService;
+    }
+
+    public void setDeleteService(DeleteService deleteService) {
+        this.deleteService = deleteService;
     }
 
     public void setMessageSource(MessageSource messageSource) {

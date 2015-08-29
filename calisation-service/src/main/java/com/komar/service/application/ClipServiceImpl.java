@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class ClipServiceImpl implements ClipService{
 
-    private static final int maxClipsNumberAllowed = 8;
+    private static final int maxClipsNumberAllowed = 100;
 
     @Autowired
     private ClipDAO clipDAO;
@@ -44,6 +44,16 @@ public class ClipServiceImpl implements ClipService{
         clipDAO.saveClip(putResultTO, account, name, resourceType, withAudio);
         List<ClipTO> clipsTOs = clips.stream().map(clip -> clip.toTO()).collect(Collectors.toList());
         return clipsTOs;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean isAddingClipPossible(String login) throws AccountNotFound, MaximalClipsNumberExceeded {
+        Account account = accountDAO.findAccount(login);
+        List<Clip> clips = account.getClips();
+        if(clips.size() >= maxClipsNumberAllowed)
+            throw new MaximalClipsNumberExceeded();
+        return true;
     }
 
     @Override
