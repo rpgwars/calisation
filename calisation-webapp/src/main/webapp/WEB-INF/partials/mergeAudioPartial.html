@@ -15,27 +15,27 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div style="float : left; width: 40%">
-                <h3>Video</h3>
-                <div class="btn-info" style="border: solid;" ng-repeat="item in videoClips">
-                    {{item.name}}
-                </div>
-            </div>
-            <div style="float: right; width: 40%">
-                <h3>Audio</h3><!--{{!videoClips[$index].withAudio}}  {{!videoClips[$index].withAudio}}-->
-                <div ng-repeat="item in videoClips" style="border: solid;">
-                    <div class="btn-droppable" data-drop="true" ng-model='selectedAudioClips' jqyoui-droppable="{index: {{$index}}, beforeDrop:'beforeDrop', onDrop:'dropCallback',onOver: 'overCallback', onOut: 'outCallback'}">
-                       <div class="btn-info btn-draggable" ng-show="selectedAudioClips[$index].name" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="selectedAudioClips" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">{{selectedAudioClips[$index].name}}</div>
-                    </div>
+        <div class='contentWrapper ng-cloak'>
+            <div class='content'>
+                <div class="row-fluid">
+                    <ul class="thumbnails">
+                        <li ng-repeat="video in videoClips" class="span3" ng-init="subSelectedAudioClips=selectedAudioClips[$index]" style='margin-left:10px;'>
+                            {{video.name}}
+                            <div class="thumbnail" data-drop="true" ng-model='subSelectedAudioClips' data-jqyoui-options="{}"  jqyoui-droppable="{multiple:true,beforeDrop:'beforeDrop', onDrop:'dropCallback',onOver: 'overCallback', onOut: 'outCallback'}">
+                                <div class="caption">
+                                    <div class="btn-info btn-draggable" ng-repeat="audio in subSelectedAudioClips" ng-show="true" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="subSelectedAudioClips" jqyoui-draggable="{index: {{$index}},animate:true}">{{audio.name}}</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <BR/><BR/><BR/><BR/><BR/><BR/><BR/><BR/><BR/><BR/>
-        <div>
-            <h3>Audio</h3>
-            <div style="border : solid" class="btn-droppable" ng-repeat="item in audioClipsCopy" data-drop="true" ng-model='audioClipsCopy' jqyoui-droppable="{index: {{$index}}, beforeDrop:'beforeDrop'}">
-                <div class="btn-info btn-draggable" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="audioClipsCopy" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStart:'startCallback(item, $index)', onStop: 'stopCallback', onDrag: 'dragCallback'}" ng-hide="!item.name">{{item.name}}</div>
+        <div class="navbar-inner">
+            <div class="container form-inline" style="text-align: center;">
+                <div class="btn-droppable" ng-repeat="audio in audioClipsCopy" data-drop="true" ng-model='audioClipsCopy' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=audioClipsCopy])'}"  jqyoui-droppable="{index: {{$index}}}">
+                    <div class="btn-info btn-draggable" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="audioClipsCopy" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true,onStart:'startCallback(item, $index)', onStop: 'stopCallback', onDrag: 'dragCallback'}">{{audio.name}}</div>
+                </div>
             </div>
         </div>
     </div>

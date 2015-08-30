@@ -7,7 +7,7 @@
     var initialAudioClips = <c:out value="${audioClips}" escapeXml="false"/>;
     var initialSelectedAudioClips = [];
     for(var i = 0; i<initialVideoClips.length; i++) {
-        initialSelectedAudioClips.push({});
+        initialSelectedAudioClips.push([]);
     };
 </script>
 
@@ -38,7 +38,7 @@
                         <source ng-src="{{videoClip.url | trusted}}"/>
                     </video>
                     <div>
-                        <button ng-click="deleteClip(videoClip.url)">Delete</button>
+                        <button class="deleteButton" ng-click="deleteClip(videoClip.url)">Delete</button>
                     </div>
                 </div>
                 <br style="clear: left;" />
@@ -58,7 +58,7 @@
                         <source ng-src="{{audioClip.url | trusted}}"/>
                     </audio>
                     <div>
-                        <button ng-click="deleteClip(audioClip.url)">Delete</button>
+                        <button class="deleteButton" ng-click="deleteClip(audioClip.url)">Delete</button>
                     </div>
                 </div>
                 <br style="clear: left;" />
@@ -67,9 +67,9 @@
     </div>
     <button ng-click="openVideoMergingDialog()">Scal</button>
     <button id="toggleSequenceButton" ng-click="toggleSequence()">Uruchom sekwencję</button>
-
+    <button ng-click="combineClips()">Połącz klipy</button>
 </div>
-<div>
+<!--<div>
     <form:form method="post" action="uploadResource" commandName="resource" enctype="multipart/form-data">
         <div>
             <div><form:label path="name">Name of your file:</form:label></div>
@@ -87,7 +87,7 @@
         </div>
         <input type="submit" value="Upload"> Press here to upload the file!
     </form:form>
-</div>
+</div>-->
 
 <script src="/js/jquery.js"></script>
 <script src="/js/jquery-ui.js"></script>

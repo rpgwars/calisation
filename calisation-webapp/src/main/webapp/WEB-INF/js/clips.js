@@ -54,7 +54,7 @@ clips.controller('ClipsController', ['$scope', 'Upload', '$http', 'ngProgressFac
             }
             if(val.resourceType == 'VIDEO'){
                 videoClips.push(val);
-                selectedAudioClips.push({});
+                selectedAudioClips.push([]);
             }
         });
     }
@@ -100,8 +100,6 @@ clips.controller('ClipsController', ['$scope', 'Upload', '$http', 'ngProgressFac
                         $scope.successAlert();
                 }).success(function (data, status, headers, config) {
                     refreshClips(data);
-                    $scope.progressbar.reset();
-
                 }).error(function (data, status, headers, config) {
                     if(status == 403){
                         alert('Przekroczyłeś maksymalną liczbę klipów na koncie. Usuń jeden z nich przed dodaniem następnego.');
@@ -116,8 +114,28 @@ clips.controller('ClipsController', ['$scope', 'Upload', '$http', 'ngProgressFac
         }
     };
 
+    $scope.combineClips = function() {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/myResources");
+        var clipsCombination = {
+            videoClips : $scope.videoClips,
+            selectedAudioClips : $scope.selectedAudioClips
+        };
+
+        var clipsCombinationField = document.createElement("input");
+        clipsCombinationField.setAttribute("type", "hidden");
+        clipsCombinationField.setAttribute("name", "clipsCombination");
+        clipsCombinationField.setAttribute("value", JSON.stringify(clipsCombination));
+        form.appendChild(clipsCombinationField);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
     $scope.successAlert = function () {
         var message = 'Plik został wysłany na serwer. Długość jego przetwarzanie będzie zależeć od formatu i rozmiaru klipu.';
+        $scope.progressbar.reset();
         Flash.create('success', message);
     };
 
@@ -151,54 +169,77 @@ clips.controller('ClipsController', ['$scope', 'Upload', '$http', 'ngProgressFac
         rewindMedia('video',controls);
     }
 
+    function stopSequence(){
+        $scope.videoInSequenceNr = 0;
+        $scope.sequencePlaying = false;
+        document.getElementById("toggleSequenceButton").innerHTML = "Uruchom sekwencję";
+        angular.forEach(document.getElementsByClassName("deleteButton"), function(button, key){
+            button.style.display = null;
+        });
+    }
 
     function continueSequence(e){
         if($scope.sequencePlaying) {
             if ($scope.videoInSequenceNr < videoClips.length) {
-                var audioUrl = selectedAudioClips[$scope.videoInSequenceNr-1].url;
-                if(audioUrl != undefined) {
-                    document.querySelectorAll("[src='" + audioUrl + "']").item(0).parentNode.pause();
-                    document.querySelectorAll("[src='" + audioUrl + "']").item(0).parentNode.currentTime = 0;
-                }
-                audioUrl = selectedAudioClips[$scope.videoInSequenceNr].url;
-                if(audioUrl != undefined) {
-                    document.querySelectorAll("[src='" + audioUrl + "']").item(0).parentNode.play();
-                }
+                stopPlayingAudioSubsequence($scope.videoInSequenceNr-1);
+                startPlayingAudioSubsequence($scope.videoInSequenceNr);
                 document.getElementsByTagName('video').item($scope.videoInSequenceNr++).play();
             }
             else {
-                var audioUrl = selectedAudioClips[$scope.videoInSequenceNr-1].url;
-                if(audioUrl != undefined) {
-                    document.querySelectorAll("[src='" + audioUrl + "']").item(0).parentNode.pause();
-                    document.querySelectorAll("[src='" + audioUrl + "']").item(0).parentNode.currentTime = 0;
-                }
-                $scope.videoInSequenceNr = 0;
-                $scope.sequencePlaying = false;
-                document.getElementById("toggleSequenceButton").innerHTML = "Uruchom sekwencję";
+                stopPlayingAudioSubsequence($scope.videoInSequenceNr - 1);
+                stopSequence();
             }
         }
+    }
+
+    function getAssociatedAudioClips(videoInSequenceNr){
+        var audioElements = [];
+        angular.forEach(selectedAudioClips[videoInSequenceNr], function(subSelectedAudioClip, key){
+            audioElements.push(document.querySelectorAll("[src='" + subSelectedAudioClip.url + "']").item(0).parentNode);
+        });
+        return audioElements;
+    }
+
+    function startPlayingAudioSubsequence(videoInSequenceNr){
+        var audioElements = getAssociatedAudioClips(videoInSequenceNr);
+        angular.forEach(audioElements, function(audioElement, index){
+            audioElement.addEventListener('ended', function(){
+                if(index+1 < audioElements.length){
+                    audioElements[index+1].play();
+                }
+            })
+        });
+        if(audioElements.length > 0)
+            audioElements[0].play();
+    }
+
+    function stopPlayingAudioSubsequence(videoInSequenceNr){
+        var audioElements = getAssociatedAudioClips(videoInSequenceNr);
+        angular.forEach(audioElements, function(audioElement, index){
+            audioElement.removeEventListener('ended');
+            audioElement.pause();
+            audioElement.currentTime = 0;
+        });
     }
 
     $scope.toggleSequence = function(){
         if(!$scope.sequencePlaying){
             $scope.sequencePlaying = true;
+            angular.forEach(document.getElementsByClassName("deleteButton"), function(button, key){
+                button.style.display = "none";
+            });
             document.getElementById("toggleSequenceButton").innerHTML = "Zatrzymaj";
             rewindAllMedia(false);
             var videos = document.getElementsByTagName('video');
             for(var i = 0; i<videos.length; i++) {
                 videos.item(i).addEventListener('ended', continueSequence, false);
             }
-
-            var audioUrl = selectedAudioClips[$scope.videoInSequenceNr].url;
-            if(audioUrl != undefined)
-                document.querySelectorAll("[src='" + audioUrl + "']").item(0).parentNode.play();
+            startPlayingAudioSubsequence($scope.videoInSequenceNr);
             document.getElementsByTagName('video').item($scope.videoInSequenceNr++).play();
         }
         else{
-            $scope.sequencePlaying = false;
-            document.getElementById("toggleSequenceButton").innerHTML = "Uruchom sekwencję";
+            stopSequence();
             rewindAllMedia(true);
-            $scope.videoInSequenceNr = 0;
         }
     }
 }]);
@@ -270,12 +311,21 @@ clips.controller('audioMergingController', ['$scope', 'videoClips', 'audioClips'
     $scope.audioClips = audioClips;
     $scope.audioClipsCopy = [];
 
+    $scope.isAudioClipSelected = function(audioClip){
+        for(i = 0; i< selectedAudioClips.length; i++){
+            if(selectedAudioClips[i].indexOf(audioClip) != -1){
+                return true;
+            }
+        }
+        return false;
+    };
+
     $scope.selectedAudioClips = selectedAudioClips;
-    angular.forEach($scope.audioClips, function(val, key) {
-        if(selectedAudioClips.indexOf(val) == -1)
-            $scope.audioClipsCopy.push(val);
-        else
+    angular.forEach($scope.audioClips, function(audioClip, key) {
+        if($scope.isAudioClipSelected(audioClip))
             $scope.audioClipsCopy.push({});
+        else
+            $scope.audioClipsCopy.push(audioClip);
     });
 
     $scope.totalDuration = 0;
@@ -309,7 +359,7 @@ clips.controller('audioMergingController', ['$scope', 'videoClips', 'audioClips'
 
     $scope.beforeDrop = function(){
         var deferred = $q.defer();
-        if(this.item.withAudio == true) {
+        if(this.video.withAudio == true) {
             deferred.reject();
         }else {
             deferred.resolve();
@@ -318,12 +368,10 @@ clips.controller('audioMergingController', ['$scope', 'videoClips', 'audioClips'
     };
 
     $scope.overCallback = function(event, ui) {
-        if(this.item.withAudio == true){
+        if(this.video.withAudio == true){
             var message = 'Ten klip ma wybraną oryginalną ścieżkę dzwiękową';
             Flash.create('info', message);
         }
-        console.log('over');
-
     };
 
     $scope.outCallback = function(event, ui) {

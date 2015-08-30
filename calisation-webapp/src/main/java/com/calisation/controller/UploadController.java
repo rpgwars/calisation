@@ -137,7 +137,16 @@ public class UploadController {
             return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @RequestMapping(value = "/uploadResource", method = RequestMethod.POST)
+    public ModelAndView uploadFileHandler(@ModelAttribute(resourceModel) @Valid UploadedFile uploadedFile,
+                                          BindingResult bindingResult,
+                                          final RedirectAttributes redirectAttributes) {
 
+        ModelAndView myResourcesModelAndView = new ModelAndView();
+        myResourcesModelAndView.setViewName(myResourcesView);
+        return myResourcesModelAndView;
+    }
+    /*
     //watch this http://stackoverflow.com/questions/25145940/sprign-mvc-jsr-303-validation-leads-to-error-400
     @RequestMapping(value = "/uploadResource", method = RequestMethod.POST)
     public ModelAndView uploadFileHandler(@ModelAttribute(resourceModel) @Valid UploadedFile uploadedFile,
@@ -166,7 +175,7 @@ public class UploadController {
 
         return myResourcesModelAndView;
     }
-
+    */
     private String resolveMessage(String key) {
         return messageSource.getMessage(key, null, LocaleContextHolder.getLocale());
     }
